@@ -50,7 +50,7 @@ TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Th
 
 GOOD LUCK 😀
 */
-
+//1
 const game = {
   team1: 'Bayern Munich',
   team2: 'Borrussia Dortmund',
@@ -91,3 +91,30 @@ const game = {
     team2: 6.5,
   },
 };
+//1
+const [players1, players2] = game.players
+console.log(players1, players2)
+//2
+const [gk, ...fieldPlayers] = players1
+console.log(gk)
+//3
+const allPlayers = [...players1, ...players2]
+//4
+const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic']
+//5
+// const { team1: team1, x: draw, team2: team2 } = game.odds
+const { odds: { team1, x: draw, team2 } } = game
+console.log(team1, draw, team2)
+//6
+
+const printGoals = (...player) => {
+  console.log(`${player.length} goal scored`)
+}
+printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich')
+printGoals(...game.scored)
+
+
+//7 
+team1 < team2 && console.log("Team2 is more likely to win")
+team1 > team2 && console.log("Team1 is more likely to win")
+team1 === team2 && console.log("It will be a draw") 

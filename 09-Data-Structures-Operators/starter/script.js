@@ -3,8 +3,8 @@
 
 
 // Data needed for a later exercise
-const flights =
-  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+// const flights =
+//   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
 // Data needed for first part of the section
 const restaurant = {
@@ -176,7 +176,7 @@ const game = {
 
 // Coding Challenge #3
 
-/* 
+/*
 Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
 
 1. Create an array 'events' of the different game events that happened (no duplicates)
@@ -188,31 +188,101 @@ Let's continue with our football betting app! This time, we have a map with a lo
 GOOD LUCK 😀
 */
 
-const gameEvents = new Map([
-  [17, '⚽️ GOAL'],
-  [36, '🔁 Substitution'],
-  [47, '⚽️ GOAL'],
-  [61, '🔁 Substitution'],
-  [64, '🔶 Yellow card'],
-  [69, '🔴 Red card'],
-  [70, '🔁 Substitution'],
-  [72, '🔁 Substitution'],
-  [76, '⚽️ GOAL'],
-  [80, '⚽️ GOAL'],
-  [92, '🔶 Yellow card'],
-]);
+// const gameEvents = new Map([
+//   [17, '⚽️ GOAL'],
+//   [36, '🔁 Substitution'],
+//   [47, '⚽️ GOAL'],
+//   [61, '🔁 Substitution'],
+//   [64, '🔶 Yellow card'],
+//   [69, '🔴 Red card'],
+//   [70, '🔁 Substitution'],
+//   [72, '🔁 Substitution'],
+//   [76, '⚽️ GOAL'],
+//   [80, '⚽️ GOAL'],
+//   [92, '🔶 Yellow card'],
+// ]);
 
-// 1
+// // 1
 
-const events = [...new Set(gameEvents.values())]
-// 2
-gameEvents.delete(64)
+// const events = [...new Set(gameEvents.values())]
+// // 2
+// gameEvents.delete(64)
 
-// 3
-console.log(`An event happened, on average, every ${90 / gameEvents.size} minutes`)
-const time = [...gameEvents.keys()].pop();
-// 4
+// // 3
+// console.log(`An event happened, on average, every ${90 / gameEvents.size} minutes`)
+// const time = [...gameEvents.keys()].pop();
+// // 4
 
-for (const [min, event] of gameEvents.entries()) {
-  min <= 45 ? console.log(`[FIRST HALF] ${min} : ${event}`) : console.log(`[Second HALF] ${min} : ${event}`)
-}
+// for (const [min, event] of gameEvents.entries()) {
+//   min <= 45 ? console.log(`[FIRST HALF] ${min} : ${event}`) : console.log(`[Second HALF] ${min} : ${event}`)
+// }
+
+
+
+// Coding Challenge #4
+
+/*
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
+
+THIS TEST DATA (pasted to textarea)
+underscore_case
+ first_name
+Some_Variable
+  calculate_AGE
+delayed_departure
+
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
+
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
+
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*/
+
+
+// const textarea = document.querySelector('textarea').value
+// const button = document.querySelector('button')
+// const camelCase_SplitVersion = (str, index) => {
+//   let splitedStr = str.toLowerCase().trim().split("_")
+//   splitedStr = splitedStr.map(item => item.slice(0, 1).toUpperCase() + item.slice(1))
+//   return splitedStr.join(" ").padEnd('25') + "✅".repeat(index + 1)
+// }
+
+// const camelCase_SplitVersion2 = (str) => {
+//   let [first, last] = str.toLowerCase().trim().split("_")
+//   return first.slice(0, 1).toUpperCase() + first.slice(1) + " " + last.slice(0, 1).toUpperCase() + last.slice(1)
+// }
+
+// button.addEventListener('click', () => {
+//   const rows = textarea.split("\n")
+//   for (const [index, item] of rows.entries()) {
+//     console.log(camelCase_SplitVersion(item, index))
+//     // console.log(camelCase_SplitVersion2(item))
+//   }
+// })
+
+
+// challenge
+// String Methods Practice
+
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+// 🔴 Delayed Departure from FAO to TXL (11h25)
+//              Arrival from BRU to FAO (11h45)
+//   🔴 Delayed Arrival from HEL to FAO (12h05)
+//            Departure from FAO to LIS (12h30)
+
+const splitedFlight = flights.split(";")
+console.log(splitedFlight)

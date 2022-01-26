@@ -284,5 +284,10 @@ const flights =
 //   🔴 Delayed Arrival from HEL to FAO (12h05)
 //            Departure from FAO to LIS (12h30)
 
-const splitedFlight = flights.split(";")
-console.log(splitedFlight)
+const getClearCode = (str) => str.slice(0, 3).toUpperCase()
+const splitedFlight = flights.split("+")
+splitedFlight.forEach(item => {
+  const [type, from, to, time] = item.split(";")
+  const output = `${type.startsWith('_Delayed') ? '🔴' : ''}${type.replaceAll('_', ' ')} ${getClearCode(from)} ${getClearCode(to)} (${time.replace(':', 'h')})`.padStart(42)
+  console.log(output)
+})

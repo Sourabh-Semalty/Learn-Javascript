@@ -74,3 +74,42 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+
+
+const obj = [
+  {
+    slno: 120,
+    name: 'sourabh',
+    age: 23
+  },
+  {
+    slno: 140,
+    name: 'rikshay',
+    age: 23
+  },
+  {
+    slno: 140,
+    name: 'rikshay',
+    age: 23
+  }
+]
+
+const transform = [];
+obj.map(item => {
+  let isPresent = false;
+  if (transform.length == 0) {
+    transform.push([item['slno'], item])
+  } else {
+    for (const [key, value] of transform) {
+      if (item['slno'] == key) {
+        isPresent = true
+      }
+    }
+    if (!isPresent)
+      transform.push([item['slno'], item])
+  }
+})
+console.log(transform)
+// const arr = new Map(obj.map(item => [item['slno'], item]))
+// console.log(arr)

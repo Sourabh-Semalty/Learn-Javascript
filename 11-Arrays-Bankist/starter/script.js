@@ -74,3 +74,204 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+const displayMovements = (movements) => {
+  containerMovements.innerHTML = ''
+  movements.forEach((mov, i) => {
+    const typeofMov = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+    <div class="movements__row">
+        <div class="movements__type movements__type--${typeofMov}">${i + 1} ${typeofMov}</div>
+        <div class="movements__value">${mov}€</div> 
+      </div>  
+    `
+    containerMovements.insertAdjacentHTML('afterbegin', html)
+  });
+}
+
+const calcDisplayBalance = (acc) => {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0)
+  labelBalance.textContent = `${acc.balance}€`;
+}
+
+const calcDisplaySummary = (acc) => {
+  const incomes = acc.movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0)
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = acc.movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0)
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = acc.movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * acc.interestRate) / 100)
+    .filter((int) => int >= 1)
+    .reduce((acc, mov) => acc + mov, 0)
+  labelSumInterest.textContent = `${interest}€`;
+}
+
+const createUserNames = function (accs) {
+  accs.forEach(acc => {
+    acc.username = acc.owner.toLowerCase()
+      .split(' ')
+      .map((name) => name[0])
+      .join('');
+  })
+}
+const user = 'Steven Thomas Williams';
+createUserNames(accounts)
+
+const updateUI = (acc) => {
+  // Display movements
+  displayMovements(acc.movements);
+  // Display balance
+  calcDisplayBalance(acc)
+  // Display summary
+  calcDisplaySummary(acc)
+}
+
+// Login
+let currentAccount;
+btnLogin.addEventListener('click', (e) => {
+  e.preventDefault()
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value)
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    labelWelcome.textContent = `Welcome Back, ${currentAccount.owner.split(' ')[0]}`
+
+    inputLoginUsername.value = inputLoginPin.value = ''
+    inputLoginPin.blur()
+    // Display UI and message
+    containerApp.style.opacity = 1;
+
+    // update the ui
+    updateUI(currentAccount)
+  }
+})
+
+// transfer amt implementation
+btnTransfer.addEventListener('click', (e) => {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value)
+  const receiverAcc = accounts.find(acc => acc.username === inputTransferTo.value);
+
+  inputTransferAmount.value = inputTransferTo.value = ''
+  if (amount > 0 &&
+    receiverAcc &&
+    currentAccount?.balance >= amount &&
+    receiverAcc?.username !== currentAccount?.username) {
+    // Doing the transfer
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    // updating the ui
+    updateUI(currentAccount);
+
+  }
+
+})
+
+btnClose.addEventListener('click', (e) => {
+  e.preventDefault()
+
+  if (inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin) {
+    const index = accounts.findIndex(acc => acc.username === currentAccount.username)
+    accounts.splice(index, 1)
+
+    // hide Ui
+    containerApp.style.opacity = 0;
+  }
+  inputCloseUsername.value = inputClosePin.value = ''
+})
+
+// const enrToUsd = 1.1;
+// const totalDepositsUSD = movements.filter(mov => mov > 0).map(mov => mov * enrToUsd).reduce((acc, mov) => acc + mov, 0);
+// console.log(totalDepositsUSD)
+
+
+///////////////////////////////////////
+// Coding Challenge #1
+/*
+Julia and Kate are doing a study on dogs. So each of them asked 5 dog owners about their dog's age, and stored the data into an array (one array for each). For now, they are just interested in knowing whether a dog is an adult or a puppy. A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years old.
+
+Create a function 'checkDogs', which accepts 2 arrays of dog's ages ('dogsJulia' and 'dogsKate'), and does the following things:
+
+1. Julia found out that the owners of the FIRST and the LAST TWO dogs actually have cats, not dogs! So create a shallow copy of Julia's array, and remove the cat ages from that copied array (because it's a bad practice to mutate function parameters)
+2. Create an array with both Julia's (corrected) and Kate's data
+3. For each remaining dog, log to the console whether it's an adult ("Dog number 1 is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy 🐶")
+4. Run the function for both test datasets
+
+HINT: Use tools from all lectures in this section so far 😉
+
+TEST DATA 1: Julia's data [3, 5, 2, 12, 7], Kate's data [4, 1, 15, 8, 3]
+TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+*/
+
+// function checkDogs(dogsJulia, dogsKate) {
+//   const dogsJuliaCorrected = dogsJulia.slice()
+//   dogsJuliaCorrected.splice(0, 1)
+//   dogsJuliaCorrected.splice(-2)
+
+
+//   const dogsAges = [...dogsJuliaCorrected, ...dogsKate]
+//   dogsAges.forEach((age, index) => {
+//     age >= 3 ? console.log(`Dog number ${index + 1} is an adult, and is ${age} years old`) :
+//       console.log(`Dog number ${index + 1} is still a puppy 🐶`)
+//   })
+// }
+
+// checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3])
+
+
+
+// Coding Challenge #2
+
+/*
+Let's go back to Julia and Kate's study about dogs. This time, they want to convert dog ages to human ages and calculate the average age of the dogs in their study.
+
+Create a function 'calcAverageHumanAge', which accepts an arrays of dog's ages ('ages'), and does the following things in order:
+
+1. Calculate the dog age in human years using the following formula: if the dog is <= 2 years old, humanAge = 2 * dogAge. If the dog is > 2 years old, humanAge = 16 + dogAge * 4.
+2. Exclude all dogs that are less than 18 human years old (which is the same as keeping dogs that are at least 18 years old)
+3. Calculate the average human age of all adult dogs (you should already know from other challenges how we calculate averages 😉)
+4. Run the function for both test datasets
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+*/
+// const calcAverageHumanAge = (ages) => {
+//   const humanAges = ages.map(dogAge => dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4)
+//   const adults = humanAges.filter(age => age >= 18)
+//   const avgHumanAge = adults.reduce((acc, cur) => acc + cur, 0) / adults.length
+//   console.log(avgHumanAge)
+// }
+// calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3])
+
+
+//////////////////////
+// Coding Challenge #3
+
+/*
+Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+*/
+
+
+// const calcAverageHumanAge = (ages) => {
+//   const humanAges = ages
+//     .map(dogAge => dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4)
+//     .filter(age => age >= 18)
+//     .reduce((acc, cur, i, arr) => acc + cur / arr.length, 0)
+//   console.log(humanAges)
+// }
+// calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3])

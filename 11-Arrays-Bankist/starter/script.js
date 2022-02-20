@@ -289,3 +289,16 @@ GOOD LUCK 😀
 //   console.log(humanAges)
 // }
 // calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3])
+
+// flat
+// const overalBalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov, 0)
+// console.log(overalBalance)
+
+// // flat Map
+// const overalBalance2 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((acc, mov) => acc + mov, 0)
+// console.log(overalBalance2)

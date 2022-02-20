@@ -75,9 +75,11 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
-const displayMovements = (movements) => {
+const displayMovements = (movements, sort = false) => {
   containerMovements.innerHTML = ''
-  movements.forEach((mov, i) => {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements
+  movs.forEach((mov, i) => {
     const typeofMov = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <div class="movements__row">
@@ -182,10 +184,7 @@ btnTransfer.addEventListener('click', (e) => {
     updateUI(currentAccount);
 
   }
-
 })
-
-
 
 btnClose.addEventListener('click', (e) => {
   e.preventDefault()
@@ -198,6 +197,13 @@ btnClose.addEventListener('click', (e) => {
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = ''
+})
+
+let sortState = false;
+btnSort.addEventListener('click', (e) => {
+  e.preventDefault()
+  displayMovements(currentAccount.movements, !sortState)
+  sortState = !sortState
 })
 
 // const enrToUsd = 1.1;
@@ -302,3 +308,20 @@ GOOD LUCK 😀
 //   .flatMap(acc => acc.movements)
 //   .reduce((acc, mov) => acc + mov, 0)
 // console.log(overalBalance2)
+
+
+
+// sorting
+
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+
+// console.log(owners.sort());
+// console.log(owners)
+
+
+// // Numbers
+// console.log(movements)
+// // return < 0 , A, B (keep order)
+// // return > 0, A, B (switch order)
+// movements.sort((a, b) => a - b)
+// console.log(movements)

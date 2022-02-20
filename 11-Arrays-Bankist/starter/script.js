@@ -325,3 +325,59 @@ GOOD LUCK 😀
 // // return > 0, A, B (switch order)
 // movements.sort((a, b) => a - b)
 // console.log(movements)
+
+
+// labelBalance.addEventListener('click', () => {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => Number(el.textContent.replace('€', ''))
+//   )
+//   const movementsUI2 = [...document.querySelectorAll('.movements__value')]
+//     .map(el => Number(el.textContent.replace('€', '')))
+//   console.log(movementsUI2)
+
+// })
+
+
+// Little More pratice with array
+// 1
+// const bankDepositSum = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov > 0)
+//   .reduce((sum, cur) => sum + cur, 0)
+// console.log(bankDepositSum)
+
+// 2.
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov > 1000).length
+// console.log(numDeposits1000)
+
+
+// 3.
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0)
+// console.log(numDeposits1000)
+
+// 4.
+// const sums = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((sums, cur) => {
+//     cur > 0 ? sums.deposit += cur : sums.widthrawls += cur
+//     return sums;
+//   }, { deposit: 0, widthrawls: 0 });
+// console.log(sums);
+
+
+// 4.
+// const sums = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((sums, cur) => {
+//     sums[cur > 0 ? 'deposit' : 'widthrawls'] += cur
+//     return sums;
+//   }, { deposit: 0, widthrawls: 0 });
+// console.log(sums);
+
+
+

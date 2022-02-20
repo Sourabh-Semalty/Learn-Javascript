@@ -151,6 +151,18 @@ btnLogin.addEventListener('click', (e) => {
   }
 })
 
+btnLoan.addEventListener('click', (e) => {
+  e.preventDefault()
+
+  const amount = Number(inputLoanAmount.value)
+  if (amount > 0 && currentAccount.movements.some(mov => mov > (amount * 0.1))) {
+    currentAccount.movements.push(amount);
+  }
+  inputLoanAmount.value = '';
+  // update the Ui
+  updateUI(currentAccount);
+})
+
 // transfer amt implementation
 btnTransfer.addEventListener('click', (e) => {
   e.preventDefault();
@@ -172,6 +184,8 @@ btnTransfer.addEventListener('click', (e) => {
   }
 
 })
+
+
 
 btnClose.addEventListener('click', (e) => {
   e.preventDefault()

@@ -20,31 +20,34 @@
 
 
 
-// class PersonCl {
-//     constructor(fullName, birthYear) {
-//         this.fullName = fullName;
-//         this.birthYear = birthYear;
-//     }
+class PersonCl {
+    constructor(fullName, birthYear) {
+        this.fullName = fullName;
+        this.birthYear = birthYear;
+    }
 
-//     calcAge() {
-//         console.log(2023 - this.birthYear);
-//     }
+    calcAge() {
+        console.log(2023 - this.birthYear);
+    }
 
-//     get age() {
-//         return 2037 - this.birthYear;
-//     }
+    // get age() {
+    //     return 2037 - this.birthYear;
+    // }
 
-//     set fullName(name) {
-//         if (name.includes(' ')) this._fullName = name;
-//         else alert(`${name} is not a full name`);
-//     }
-//     get fullName() {
-//         return this._fullName;
-//     }
-// }
+    // set fullName(name) {
+    //     if (name.includes(' ')) this._fullName = name;
+    //     else alert(`${name} is not a full name`);
+    // }
+    // get fullName() {
+    //     return this._fullName;
+    // }
+    static hey() {
+        console.log('Hi they 🧕')
+    }
+}
 
-// const sourabh = new PersonCl('Sourabh Semalty', 1998)
-// console.log(sourabh);
+const sourabh = new PersonCl('Sourabh Semalty', 1998)
+PersonCl.hey()
 // sourabh.calcAge();
 // console.log(sourabh.age);
 
@@ -125,7 +128,7 @@ GOOD LUCK 😀
 
 // Coding Challenge #2
 
-/* 
+/*
 1. Re-create challenge 1, but this time using an ES6 class;
 2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide by 1.6);
 3. Add a setter called 'speedUS' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the input by 1.6);
@@ -136,34 +139,38 @@ DATA CAR 1: 'Ford' going at 120 km/h
 GOOD LUCK 😀
 */
 
-class Car {
-    constructor(make, speed) {
-        this.make = make;
-        this.speed = speed
-    }
-    accelerate() {
-        this.speed += 10;
-        console.log(`${this.make + ' has increase speed of ' + this.speed}`);
-    }
-    brake() {
-        this.speed -= 5;
-        console.log(`${this.make + ' has deceased speed of ' + this.speed}`);
-    }
-    get speedUs() {
-        return (this.speed / 1.6) + ' mi/h';
-    }
-    set speedUs(curspeed) {
-        this.speed = (curspeed * 1.6);
-    }
-}
+// class Car {
+//     constructor(make, speed) {
+//         this.make = make;
+//         this.speed = speed
+//     }
+//     accelerate() {
+//         this.speed += 10;
+//         console.log(`${this.make + ' has increase speed of ' + this.speed}`);
+//     }
+//     brake() {
+//         this.speed -= 5;
+//         console.log(`${this.make + ' has deceased speed of ' + this.speed}`);
+//     }
+//     get speedUs() {
+//         return (this.speed / 1.6) + ' mi/h';
+//     }
+//     set speedUs(curspeed) {
+//         this.speed = (curspeed * 1.6);
+//     }
+// }
 
 
-const ford = new Car('Ford', 120)
-ford.accelerate()
-ford.brake()
-ford.accelerate()
+// const ford = new Car('Ford', 120)
+// ford.accelerate()
+// ford.brake()
+// ford.accelerate()
 
-console.log(ford.speedUs)
+// console.log(ford.speedUs)
 
-ford.speedUs = 190
-console.log(ford.speedUs);
+// ford.speedUs = 190
+// console.log(ford.speedUsj);
+
+// 1. classes are not hoisted
+// 2. classes are first-class function -> means we can call inside the function and return them because it is special type of function
+// 3. classes always run in strict mode

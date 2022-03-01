@@ -46,8 +46,8 @@ class PersonCl {
     }
 }
 
-const sourabh = new PersonCl('Sourabh Semalty', 1998)
-PersonCl.hey()
+// const sourabh = new PersonCl('Sourabh Semalty', 1998)
+// PersonCl.hey()
 // sourabh.calcAge();
 // console.log(sourabh.age);
 
@@ -174,3 +174,33 @@ GOOD LUCK 😀
 // 1. classes are not hoisted
 // 2. classes are first-class function -> means we can call inside the function and return them because it is special type of function
 // 3. classes always run in strict mode
+
+
+
+
+// const Person = function (fname, birthYear) {
+//     this.fname = fname;
+//     this.birthYear = birthYear;
+// }
+
+// Person.prototype.calcAge = function () {
+//     return (2037 - this.birthYear);
+// }
+
+
+// const Student = function (fname, birthYear, course) {
+//     Person.call(this, fname, birthYear);
+//     this.course = course;
+// }
+// Student.prototype = Object.create(Person.prototype)
+
+// Student.prototype.introduce = function () {
+//     console.log(`My name is ${this.fname} and I study at ${this.course}`);
+// }
+
+// const mike = new Student("Sourabh", 1998, "Btech");
+// mike.introduce();
+// console.log(mike)
+// console.log(mike.calcAge());
+
+
